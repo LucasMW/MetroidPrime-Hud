@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
         if(seesYou){
             TimeInterval += Time.deltaTime;
 
-            if (TimeInterval >= 0.4)
+            if (TimeInterval >= 0.3)
             {
                 Shoot();
             }
