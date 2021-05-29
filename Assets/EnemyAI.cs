@@ -12,6 +12,9 @@ public class EnemyAI : MonoBehaviour
     public ParticleSystem cannonParticleShooter;
 
     private float TimeInterval ;
+    private float coolDown = 0.1f;
+    private bool shouldShoot = false;
+    private float shotsLeft = 3;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,7 @@ public class EnemyAI : MonoBehaviour
     void Shoot() {
         Debug.Log("Shoot");
         cannonParticleShooter.Play();
+
     }
 
     void LateUpdate()
@@ -32,14 +36,18 @@ public class EnemyAI : MonoBehaviour
         // ones per in seconds
         if(seesYou){
             TimeInterval += Time.deltaTime;
+            coolDown -= Time.deltaTime;
 
-            if (TimeInterval >= 0.3)
+            if (TimeInterval >= 0.3 && shotsLeft > 0 && coolDown <= 0)
             {
                 Shoot();
+                shotsLeft--;
+                coolDown = 0.1f;
             }
             if (TimeInterval >= 1)
             {
                 TimeInterval = 0;
+                shotsLeft = 3;
             
             }
         }
