@@ -37,7 +37,7 @@ public class DestructibleBox : MonoBehaviour
             float y = itself.transform.position.y;
             float z = itself.transform.position.z;
 
-            Instantiate(explosion, new Vector3(x,y-2,z),  Quaternion.Euler(-90 , 0, 0));
+            Instantiate(explosion, new Vector3(x,y-1,z),  Quaternion.Euler(-90 , 0, 0));
             Destroy(itself);
         }
     }
@@ -55,7 +55,7 @@ public class DestructibleBox : MonoBehaviour
         } else if(other.name == "ChargedBeamParticle"){
             HP -= 70.0f;
         } else if(other.name == "EnemyBeamParticle"){
-            HP -= 10.0f;
+            HP -= 5.0f;
         }
         Flash();
         //Perhaps play flashing animation?
