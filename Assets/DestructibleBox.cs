@@ -5,12 +5,15 @@ using UnityEngine;
 public class DestructibleBox : MonoBehaviour
 {
     public GameObject itself;
+    public GameObject explosion;
     public float HP = 10.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (explosion == null){
+            explosion = GameObject.Find("Explosion");
+        }
     }
     void Flash() {
       Renderer renderer = GetComponentInChildren<Renderer>();
@@ -30,6 +33,11 @@ public class DestructibleBox : MonoBehaviour
     {
         if(HP <= 0){
             Debug.Log("Should Destroy");
+            float x = itself.transform.position.x;
+            float y = itself.transform.position.y;
+            float z = itself.transform.position.z;
+
+            Instantiate(explosion, new Vector3(x,y-2,z),  Quaternion.Euler(-90 , 0, 0));
             Destroy(itself);
         }
     }
@@ -46,6 +54,8 @@ public class DestructibleBox : MonoBehaviour
             HP -= 10.0f;
         } else if(other.name == "ChargedBeamParticle"){
             HP -= 70.0f;
+        } else if(other.name == "EnemyBeamParticle"){
+            HP -= 10.0f;
         }
         Flash();
         //Perhaps play flashing animation?
