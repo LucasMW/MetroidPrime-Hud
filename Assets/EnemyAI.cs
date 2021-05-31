@@ -17,12 +17,18 @@ public class EnemyAI : MonoBehaviour
     private float shotsLeft = 3;
 
     private AudioSource audioSource;
+    public AudioClip shootSound;
+    public AudioClip noticeSound;
 
     // Start is called before the first frame update
     void Start()
     {
         seesYou = false;
         lightRef.GetComponent<Renderer> ().material.color = Color.green;
+        if(audioSource == null){
+            audioSource = GetComponent<AudioSource>();
+            Debug.Log(audioSource);
+        }
         
         //awereness = 30;
         //cannonParticleShooter = itself.GetComponentInChildren<ParticleSystem>();
@@ -31,6 +37,7 @@ public class EnemyAI : MonoBehaviour
     void Shoot() {
         //Debug.Log("Shoot");
         cannonParticleShooter.Play();
+        audioSource.PlayOneShot(shootSound, 0.1F);
 
     }
 
@@ -70,6 +77,7 @@ public class EnemyAI : MonoBehaviour
         if(dist < awereness) {
             seesYou = true;
             lightRef.GetComponent<Renderer> ().material.color = Color.red;
+            //audioSource.PlayOneShot(noticeSound, 0.01F);
 
         } else {
             seesYou = false;
