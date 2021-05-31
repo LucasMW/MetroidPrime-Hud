@@ -41,10 +41,24 @@ public class ArmCannon : MonoBehaviour
     [ColorUsageAttribute(true, true)]
     public Color finalEmissionColor;
 
+    public AudioClip shootAudio;
+    public AudioClip chargeAudio;
+    public AudioClip chargeShotAudio;
+    private AudioSource audioSource;
+
 
     void Start()
     {
         cannonLocalPos = cannonModel.localPosition;
+        if(audioSource == null){
+            audioSource = GetComponent<AudioSource>();
+            Debug.Log(audioSource);
+        }
+        if(shootAudio == null){
+            shootAudio = Resources.Load<AudioClip>("firebig_1");
+
+        }
+
     }
 
     void Update()
@@ -57,6 +71,8 @@ public class ArmCannon : MonoBehaviour
 
             holdTimer = Time.time;
             activateCharge = true;
+            
+            audioSource.PlayOneShot(shootAudio, 0.1F);
         }
 
         //RELEASE
@@ -64,8 +80,10 @@ public class ArmCannon : MonoBehaviour
         {
             activateCharge = false;
 
+
             if (charging)
             {
+                audioSource.PlayOneShot(chargeShotAudio, 0.1F);
                 chargedCannonParticle.Play();
                 charging = false;
                 charged = false;
@@ -89,6 +107,7 @@ public class ArmCannon : MonoBehaviour
                 chargingParticle.Play();
                 lineParticles.Play();
                 chargeTimer = Time.time;
+                audioSource.PlayOneShot(chargeAudio, 0.1F);
 
                 cannonModel.DOLocalMoveZ(cannonLocalPos.z - .22f, chargeTime);
                 cannonModel.GetComponentInChildren<Renderer>().material.DOColor(finalEmissionColor, "_EmissionColor", chargeTime);
@@ -102,6 +121,7 @@ public class ArmCannon : MonoBehaviour
             {
                 charged = true;
                 chargedParticle.Play();
+
                 chargedParticle.transform.localScale = Vector3.zero;
                 chargedParticle.transform.DOScale(1, .4f).SetEase(Ease.OutBack);
                 chargedEmission.Play();
@@ -119,6 +139,7 @@ public class ArmCannon : MonoBehaviour
         cannonModel.DOPunchPosition(new Vector3(0, 0, -punchStrenght), punchDuration, punchVibrato, punchElasticity);
 
         cannonParticleShooter.Play();
+        
     }
 
 }

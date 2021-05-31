@@ -8,12 +8,17 @@ public class DestructibleBox : MonoBehaviour
     public GameObject explosion;
     public float HP = 10.0f;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         if (explosion == null){
             explosion = GameObject.Find("Explosion");
         }
+        // if(audioSource == null){
+        //     audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
+        // }
     }
     void Flash() {
       Renderer renderer = GetComponentInChildren<Renderer>();
@@ -27,18 +32,21 @@ public class DestructibleBox : MonoBehaviour
       mat.SetColor("_EmissionColor", finalColor);
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(HP <= 0){
-            Debug.Log("Should Destroy");
+    void Explode() {
             float x = itself.transform.position.x;
             float y = itself.transform.position.y;
             float z = itself.transform.position.z;
 
             Instantiate(explosion, new Vector3(x,y-1,z),  Quaternion.Euler(-90 , 0, 0));
             Destroy(itself);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(HP <= 0){
+            Debug.Log("Should Destroy");
+            Explode();
         }
     }
 

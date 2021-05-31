@@ -12,21 +12,24 @@ public class EnemyAI : MonoBehaviour
     public ParticleSystem cannonParticleShooter;
 
     private float TimeInterval ;
-    private float coolDown = 0.1f;
+    private float coolDown = 0.2f;
     private bool shouldShoot = false;
     private float shotsLeft = 3;
+
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         seesYou = false;
         lightRef.GetComponent<Renderer> ().material.color = Color.green;
+        
         //awereness = 30;
         //cannonParticleShooter = itself.GetComponentInChildren<ParticleSystem>();
     }
 
     void Shoot() {
-        Debug.Log("Shoot");
+        //Debug.Log("Shoot");
         cannonParticleShooter.Play();
 
     }
@@ -48,8 +51,14 @@ public class EnemyAI : MonoBehaviour
             {
                 TimeInterval = 0;
                 shotsLeft = 3;
+                coolDown = 0.2f;
             
             }
+        }  else {
+            TimeInterval = 0;
+            shotsLeft = 3;
+            coolDown =  0.2f;
+
         }
         
     }
