@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        life = 100;
+        life = 199;
         visor = GameObject.Find("vidro");
         Debug.Log(visor);
     }
