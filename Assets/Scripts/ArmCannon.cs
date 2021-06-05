@@ -27,6 +27,9 @@ public class ArmCannon : MonoBehaviour
     private float holdTimer;
     private float chargeTimer;
 
+    private float limitBugTime = 0.1F;
+    private float limitBugTimer;
+
     [Space]
 
     public float punchStrenght = .2f;
@@ -117,7 +120,7 @@ public class ArmCannon : MonoBehaviour
         //CHARGING
         if (charging && !charged)
         {
-            if (Time.time - chargeTimer > chargeTime)
+            if (Time.time - chargeTimer > chargeTime &&  Input.GetMouseButton(0))
             {
                 charged = true;
                 chargedParticle.Play();
@@ -126,8 +129,17 @@ public class ArmCannon : MonoBehaviour
                 chargedParticle.transform.DOScale(1, .4f).SetEase(Ease.OutBack);
                 chargedEmission.Play();
             }
-        }
-
+        } 
+        // if(!charged && !charging && !activateCharge && chargedParticle.isPlaying){
+        //     if(limitBugTimer > limitBugTime) {
+        //         Debug.Log("Stopped BS");
+        //         chargedParticle.Stop();
+        //         limitBugTime = 0;
+        //         } else {
+        //             limitBugTimer += Time.deltaTime;
+        //         }
+                
+        // }
     }
 
 

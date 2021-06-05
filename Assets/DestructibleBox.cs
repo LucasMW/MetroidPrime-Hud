@@ -25,7 +25,7 @@ public class DestructibleBox : MonoBehaviour
       Material mat = renderer.material;
      
       float emission = Mathf.PingPong(Time.time, 1.0f);
-      Color baseColor = renderer.material.color; //Replace this with whatever you want for your base color at emission level '1'
+      Color baseColor = Color.red; //Replace this with whatever you want for your base color at emission level '1'
      
       Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
  
@@ -67,7 +67,7 @@ public class DestructibleBox : MonoBehaviour
         }
         Flash();
         //Perhaps play flashing animation?
-        Debug.Log(HP);
+        //Debug.Log(HP);
        
     }
 

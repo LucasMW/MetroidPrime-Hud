@@ -20,6 +20,8 @@ public class EnemyAI : MonoBehaviour
     public AudioClip shootSound;
     public AudioClip noticeSound;
 
+    public bool hitEverything = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,7 @@ public class EnemyAI : MonoBehaviour
         lightRef.GetComponent<Renderer> ().material.color = Color.green;
         if(audioSource == null){
             audioSource = GetComponent<AudioSource>();
-            Debug.Log(audioSource);
+            //Debug.Log(audioSource);
         }
         
         //awereness = 30;
@@ -69,11 +71,33 @@ public class EnemyAI : MonoBehaviour
         }
         
     }
-
+  
     // Update is called once per frame
     void Update()
     {
+
         float dist = Vector3.Distance(itself.transform.position, playerRef.transform.position);
+        if(hitEverything){
+                GameObject[] objs  = GameObject.FindGameObjectsWithTag("Enemy");
+                List<GameObject> myList = new List<GameObject>();
+                myList.AddRange(objs);
+                myList.AddRange(GameObject.FindGameObjectsWithTag("Interactable"));
+                float min = dist;
+                GameObject closest = playerRef;
+                foreach(GameObject obj in objs) {
+                    dist = Vector3.Distance(itself.transform.position, obj.transform.position);
+                    if (dist < min && obj != itself) {
+                        closest = obj;
+                    }
+                }
+                float dot = Vector3.Dot(closest.transform.position, playerRef.transform.position);
+                Vector3 cross = Vector3.Cross(closest.transform.position, playerRef.transform.position);
+                Vector3 target = closest.transform.position + Random.insideUnitSphere + cross/(dot*dot);
+                
+
+                itself.transform.LookAt(target);
+                
+        }
         if(dist < awereness) {
             seesYou = true;
             lightRef.GetComponent<Renderer> ().material.color = Color.red;
@@ -84,9 +108,12 @@ public class EnemyAI : MonoBehaviour
             lightRef.GetComponent<Renderer> ().material.color = Color.green;
         }
 
-        if(seesYou) {
+
+        if(seesYou && !hitEverything) {
             var mem = itself.transform.rotation;
-            Vector3 target = new Vector3(playerRef.transform.position.x,itself.transform.position.y, playerRef.transform.position.z);
+            //Vector3 target = new Vector3(playerRef.transform.position.x,itself.transform.position.y, playerRef.transform.position.z);
+
+            Vector3 target = playerRef.transform.position;
             itself.transform.LookAt(target);
             //Shoot();
         }
