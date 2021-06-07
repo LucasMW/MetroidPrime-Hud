@@ -17,7 +17,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        life = 199;
+        life = 299;
         visor = GameObject.Find("vidro");
         Debug.Log(visor);
     }
@@ -79,8 +79,8 @@ public class PlayerHealth : MonoBehaviour
         GUI.Label(new Rect(10, 10, 100, 20), "Shield: " + life);
     }   
     void GameOver() {
-    	Application.LoadLevel(Application.loadedLevel);
-    	//SceneManager.LoadScene("GameOver");
+    	//Application.LoadLevel(Application.loadedLevel);
+    	SceneManager.LoadScene("GameOver");
     }
     void OnParticleCollision(GameObject other)
     {
@@ -92,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
             life -= 70.0f;
         }
         else if(other.name == "EnemyBeamParticle"){
-            life -= 2.0f;
+            life -= 5.0f;
         }
         else {
         	life -=5.0f;

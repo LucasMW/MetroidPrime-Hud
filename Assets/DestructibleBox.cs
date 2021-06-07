@@ -7,6 +7,7 @@ public class DestructibleBox : MonoBehaviour
     public GameObject itself;
     public GameObject explosion;
     public float HP = 10.0f;
+    private Color originalColor;
 
 
 
@@ -16,20 +17,23 @@ public class DestructibleBox : MonoBehaviour
         if (explosion == null){
             explosion = GameObject.Find("Explosion");
         }
+        originalColor = itself.GetComponentInChildren<Renderer>().material.color;
         // if(audioSource == null){
         //     audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         // }
     }
     void Flash() {
-      Renderer renderer = GetComponentInChildren<Renderer>();
-      Material mat = renderer.material;
-     
-      float emission = Mathf.PingPong(Time.time, 1.0f);
-      Color baseColor = Color.red; //Replace this with whatever you want for your base color at emission level '1'
-     
-      Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
- 
-      mat.SetColor("_EmissionColor", finalColor);
+      //visor.SetActive(false);
+      itself.GetComponentInChildren<Renderer> ().material.color = Color.red;
+      StartCoroutine("SomeFunctionAfterSomeTime");
+    }
+
+    IEnumerator SomeFunctionAfterSomeTime()
+    {
+        yield return new WaitForSeconds(0.05F);
+        itself.SetActive(true);
+        //Debug.Log("x");
+        itself.GetComponentInChildren<Renderer>().material.color = originalColor;
     }
 
     void Explode() {

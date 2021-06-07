@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MixAndJam.unity
     guid: 09755070c33625f4a902cd2d9457881d
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 207d3a5fc3e1243f2a4d0ab6d8125230
   m_configObjects: {}
