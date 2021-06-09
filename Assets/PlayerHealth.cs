@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour
 {
 	public float life;
+    public float maxLife;
 	public GameObject itself;
     public AudioClip damageAudio;
     public AudioSource audioSource;
@@ -17,19 +18,20 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        life = 299;
+        maxLife = 299;
+        life = maxLife;
         visor = GameObject.Find("vidro");
         Debug.Log(visor);
     }
     void setEnergyTanks(int amount) {
         Transform[] allChildren  = energyTankGroup.GetComponentsInChildren<Transform>();
 
-        Debug.Log("allChildren " + allChildren.Length);
+        //Debug.Log("allChildren " + allChildren.Length);
         foreach (Transform child in allChildren)
         {
             Image img = child.gameObject.GetComponent<Image>();
-            Debug.Log(child.gameObject);
-            Debug.Log(img);
+            //Debug.Log(child.gameObject);
+            //Debug.Log(img);
             if(img != null){
                 img.enabled = false;
             }
@@ -54,11 +56,16 @@ public class PlayerHealth : MonoBehaviour
         }
         int lifeNumber = ((int)life) % 100;
         lifeNumberText.GetComponent<Text>().text =  lifeNumber < 10 ? "0"+ lifeNumber : lifeNumber + "";
-        Debug.Log(lifeNumber);
+        //Debug.Log(lifeNumber);
         int energyTankSquares = ((int)life) / 100;
-        Debug.Log(energyTankSquares);
+        //Debug.Log(energyTankSquares);
         setEnergyTanks(energyTankSquares);
         lifeBar.GetComponent<RectTransform>().localScale = new Vector3(1.0F*lifeNumber/99.0F, 1f, 1f);
+    }
+
+    public void Recover(float hp){
+        life += hp;
+        life = life > maxLife ? maxLife : life;
     }
 
     void Flash() {

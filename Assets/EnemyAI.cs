@@ -99,9 +99,13 @@ public class EnemyAI : MonoBehaviour
                 
         }
         if(dist < awereness) {
+            if(!audioSource.isPlaying && seesYou == false) {
+                audioSource.PlayOneShot(noticeSound, 0.1F);
+            }
             seesYou = true;
             lightRef.GetComponent<Renderer> ().material.color = Color.red;
-            //audioSource.PlayOneShot(noticeSound, 0.01F);
+
+            
 
         } else {
             seesYou = false;
