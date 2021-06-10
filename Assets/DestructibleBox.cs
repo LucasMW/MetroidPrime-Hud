@@ -8,6 +8,7 @@ public class DestructibleBox : MonoBehaviour
     public GameObject explosion;
     public float HP = 10.0f;
     private Color originalColor;
+    public GameObject prize;
 
 
 
@@ -18,6 +19,7 @@ public class DestructibleBox : MonoBehaviour
             explosion = GameObject.Find("Explosion");
         }
         originalColor = itself.GetComponentInChildren<Renderer>().material.color;
+
         // if(audioSource == null){
         //     audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
         // }
@@ -42,6 +44,10 @@ public class DestructibleBox : MonoBehaviour
             float z = itself.transform.position.z;
 
             Instantiate(explosion, new Vector3(x,y-1,z),  Quaternion.Euler(-90 , 0, 0));
+            int randnum = Random.Range(0, 100);
+            if(randnum < 30 && prize != null){
+                Instantiate(prize, new Vector3(x,y+1,z), Quaternion.Euler(0 , 0, 0) );
+            }
             Destroy(itself);
     }
 

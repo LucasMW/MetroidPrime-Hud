@@ -9,6 +9,8 @@ public class Energy : MonoBehaviour
 	private GameObject player;
 	private ArmCannon cannon;
 
+	public GameObject particleEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,17 +39,17 @@ public class Energy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void OnCollisionEnter(Collision collision)
-    {
-    	string tag  = collision.gameObject.tag;
-    	Debug.LogWarning(tag);
-    	if(tag == "Player")
-    	{
-        	PlayerHealth hp = collision.gameObject.GetComponent<PlayerHealth>();
-        	hp.life += recoverHP;
+    // void OnCollisionEnter(Collision collision)
+    // {
+    // 	string tag  = collision.gameObject.tag;
+    // 	Debug.LogWarning(tag);
+    // 	if(tag == "Player")
+    // 	{
+    //     	PlayerHealth hp = collision.gameObject.GetComponent<PlayerHealth>();
+    //     	hp.life += recoverHP;
 
-    	}
-    }
+    // 	}
+    // }
     private void OnTriggerEnter(Collider other)
     {
     	string tag  = other.gameObject.tag;
@@ -56,6 +58,7 @@ public class Energy : MonoBehaviour
     	{
         	PlayerHealth hp = other.gameObject.GetComponent<PlayerHealth>();
         	hp.Recover(recoverHP);
+        	Instantiate(particleEffect, other.gameObject.transform.position,  Quaternion.Euler(-90 , 0, 0));
         	Destroy(gameObject);
     	}
     }

@@ -10,7 +10,7 @@ public class GameOver : MonoBehaviour
     void Start()
     {
         if(reloadTime == null){
-        	reloadTime = 1;
+        	reloadTime = 2;
         }
         Reload();
     }
@@ -21,7 +21,7 @@ public class GameOver : MonoBehaviour
 
     IEnumerator SomeFunctionAfterSomeTime()
     {
-        yield return new WaitForSeconds(1F);
+        yield return new WaitForSeconds(reloadTime);
        	SceneManager.LoadScene("MixAndJam");
     }
     // Update is called once per frame

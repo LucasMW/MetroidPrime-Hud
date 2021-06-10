@@ -11,7 +11,7 @@ public class Explosion : MonoBehaviour
     	if(destroyTimeSeconds == null || destroyTimeSeconds <= 2){
     		destroyTimeSeconds = 2;
     	}
-        //StartCoroutine("Byebye");
+        StartCoroutine("Byebye");
     }
 
 
