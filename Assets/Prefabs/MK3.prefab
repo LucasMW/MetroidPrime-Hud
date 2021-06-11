@@ -212,7 +212,7 @@ MonoBehaviour:
   itself: {fileID: 5307375964975786159}
   lightRef: {fileID: 5307375965540929387}
   playerRef: {fileID: 0}
-  awereness: 30
+  awereness: 50
   cannonParticleShooter: {fileID: 5307375966330658093}
   shootSound: {fileID: 8300000, guid: e80f36418bbf54e6baf58279d52ff26d, type: 3}
   noticeSound: {fileID: 8300000, guid: 87f7eff6a86b145f188fbf2c29e60316, type: 3}
@@ -233,6 +233,8 @@ MonoBehaviour:
   explosion: {fileID: 2128265702307403797, guid: cda382fc934944c30ae57506a5ef44f8,
     type: 3}
   HP: 500
+  prize: {fileID: 4415147341873429160, guid: 9c1aac0b29cc249e4b43f3107893817d, type: 3}
+  prizeChance: 100
 --- !u!54 &5307375964975786198
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5623,7 +5625,7 @@ Transform:
   m_GameObject: {fileID: 5307375966330658089}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 2.55, z: 0.04}
-  m_LocalScale: {x: 2.32423, y: 2.324438, z: 3.79832}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5307375966337750846}
   - {fileID: 5307375965908702147}

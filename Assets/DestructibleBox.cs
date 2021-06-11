@@ -9,6 +9,7 @@ public class DestructibleBox : MonoBehaviour
     public float HP = 10.0f;
     private Color originalColor;
     public GameObject prize;
+    public int prizeChance = 30 ;
 
 
 
@@ -45,7 +46,7 @@ public class DestructibleBox : MonoBehaviour
 
             Instantiate(explosion, new Vector3(x,y-1,z),  Quaternion.Euler(-90 , 0, 0));
             int randnum = Random.Range(0, 100);
-            if(randnum < 30 && prize != null){
+            if(randnum < prizeChance && prize != null){
                 Instantiate(prize, new Vector3(x,y+1,z), Quaternion.Euler(0 , 0, 0) );
             }
             Destroy(itself);

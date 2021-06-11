@@ -31,6 +31,9 @@ public class EnemyAI : MonoBehaviour
             audioSource = GetComponent<AudioSource>();
             //Debug.Log(audioSource);
         }
+        if(playerRef == null){
+            playerRef = GameObject.Find("Player") ?? GameObject.FindWithTag("Player");
+        }
         
         //awereness = 30;
         //cannonParticleShooter = itself.GetComponentInChildren<ParticleSystem>();

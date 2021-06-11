@@ -14,8 +14,18 @@ public class Energy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("FPSController");
+        player = GameObject.Find("Player") ?? GameObject.FindWithTag("Player");
         cannon = player.GetComponent<ArmCannon>();
+        StartCoroutine("Byebye");
+ 	}
+    
+
+
+    IEnumerator Byebye()
+    {
+        yield return new WaitForSeconds(20);
+        //Debug.Log("x");
+        Destroy(gameObject);
     }
 
     void FixedUpdate() {
@@ -23,6 +33,10 @@ public class Energy : MonoBehaviour
     		Vector3 direction = player.transform.position - transform.position;
 
             float distance = direction.magnitude;
+
+            if(distance > 20) {
+            	return;
+            }
 
             direction = direction.normalized;
 
@@ -34,6 +48,9 @@ public class Energy : MonoBehaviour
 
     	} else {
     		gameObject.GetComponent<Rigidbody>().AddForce(gameObject.GetComponent<Rigidbody>().velocity * -10.0F);
+    		if(gameObject.GetComponent<Rigidbody>().velocity.magnitude < 0.01) {
+    			gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; 
+    		}
     	}
     	
     }
