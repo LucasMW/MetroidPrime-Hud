@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 5307375965540929389}
   - component: {fileID: 5307375965540929388}
   m_Layer: 0
-  m_Name: Sphere (1)
+  m_Name: Lightbulb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,7 +503,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f62b52b2d4b721742a0bc5c6b4db468d, type: 2}
+  - {fileID: 2100000, guid: bdd698bac23c6419685ee4058e125b1f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

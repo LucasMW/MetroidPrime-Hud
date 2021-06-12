@@ -8,6 +8,7 @@ public class Energy : MonoBehaviour
 
 	private GameObject player;
 	private ArmCannon cannon;
+    private Rigidbody rigidbody;
 
 	public GameObject particleEffect;
 
@@ -16,57 +17,37 @@ public class Energy : MonoBehaviour
     {
         player = GameObject.Find("Player") ?? GameObject.FindWithTag("Player");
         cannon = player.GetComponent<ArmCannon>();
+        rigidbody = gameObject.GetComponent<Rigidbody>();
         StartCoroutine("Byebye");
  	}
     
-
-
     IEnumerator Byebye()
     {
         yield return new WaitForSeconds(20);
-        //Debug.Log("x");
         Destroy(gameObject);
     }
 
     void FixedUpdate() {
     	if(cannon.charging){
     		Vector3 direction = player.transform.position - transform.position;
-
-            float distance = direction.magnitude;
+            float distance = direction.magnitude; 
 
             if(distance > 20) {
             	return;
             }
 
             direction = direction.normalized;
-
-            Debug.Log(gameObject.GetComponent<Rigidbody>().velocity );
-
-            //gameObject.GetComponent<Rigidbody>().velocity = (direction * 100 / (distance+1));
-
-            gameObject.GetComponent<Rigidbody>().AddForce(direction * 200 / (distance*distance+1));
+            rigidbody.AddForce(direction * 200 / (distance*distance+1));
 
     	} else {
-    		gameObject.GetComponent<Rigidbody>().AddForce(gameObject.GetComponent<Rigidbody>().velocity * -10.0F);
-    		if(gameObject.GetComponent<Rigidbody>().velocity.magnitude < 0.01) {
-    			gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; 
+    		rigidbody.AddForce(rigidbody.velocity * -10.0F);
+    		if(rigidbody.velocity.magnitude < 0.01) {
+    			rigidbody.velocity = Vector3.zero; 
     		}
     	}
     	
     }
 
-    // Update is called once per frame
-    // void OnCollisionEnter(Collision collision)
-    // {
-    // 	string tag  = collision.gameObject.tag;
-    // 	Debug.LogWarning(tag);
-    // 	if(tag == "Player")
-    // 	{
-    //     	PlayerHealth hp = collision.gameObject.GetComponent<PlayerHealth>();
-    //     	hp.life += recoverHP;
-
-    // 	}
-    // }
     private void OnTriggerEnter(Collider other)
     {
     	string tag  = other.gameObject.tag;
