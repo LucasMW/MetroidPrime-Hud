@@ -20,6 +20,9 @@ public class DestructibleBox : MonoBehaviour
             explosion = GameObject.Find("Explosion");
         }
         originalColor = itself.GetComponentInChildren<Renderer>().material.color;
+        if(itself == null){
+            itself = gameObject;
+        }
 
         // if(audioSource == null){
         //     audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
@@ -75,7 +78,10 @@ public class DestructibleBox : MonoBehaviour
             HP -= 70.0f;
         } else if(other.name == "EnemyBeamParticle"){
             HP -= 5.0f;
+        } else if(other.name == "MissleParticle"){
+            HP -= 50.0f;
         }
+
         Flash();
         //Perhaps play flashing animation?
         //Debug.Log(HP);

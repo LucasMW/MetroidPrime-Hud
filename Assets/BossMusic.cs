@@ -31,6 +31,7 @@ public class BossMusic : MonoBehaviour
         	if(audioSource.clip != normalMusic){
         		audioSource.clip = normalMusic;
         		audioSource.pitch = 1;
+        		audioSource.volume = 0.25F;
         		gameObject.GetComponent<AudioHighPassFilter>().enabled = false;
         		audioSource.Play();
         	}

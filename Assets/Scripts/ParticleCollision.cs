@@ -19,6 +19,10 @@ public class ParticleCollision : MonoBehaviour
 
             return 10;
         }
+        if(part.name == "MissleParticle"){
+
+            return 20;
+        }
         return 1;
     }
 

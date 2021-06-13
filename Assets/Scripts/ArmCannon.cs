@@ -11,6 +11,7 @@ public class ArmCannon : MonoBehaviour
     public Transform cannonModel;
     [Space]
     public ParticleSystem cannonParticleShooter;
+    public ParticleSystem missleShooter;
     public ParticleSystem chargingParticle;
     public ParticleSystem chargedParticle;
     public ParticleSystem lineParticles;
@@ -45,6 +46,7 @@ public class ArmCannon : MonoBehaviour
     public Color finalEmissionColor;
 
     public AudioClip shootAudio;
+    public AudioClip missleAudio;
     public AudioClip chargeAudio;
     public AudioClip chargeShotAudio;
     private AudioSource audioSource;
@@ -61,6 +63,9 @@ public class ArmCannon : MonoBehaviour
             shootAudio = Resources.Load<AudioClip>("firebig_1");
 
         }
+        if(missleAudio == null){
+            missleAudio = Resources.Load<AudioClip>("Audio/ice04.wav");
+        }
 
     }
 
@@ -76,6 +81,15 @@ public class ArmCannon : MonoBehaviour
             activateCharge = true;
             
             audioSource.PlayOneShot(shootAudio, 0.1F);
+        } 
+        else if (Input.GetMouseButtonDown(1))
+        {
+            muzzleFlash.Play();
+
+            cannonModel.DOComplete();
+            cannonModel.DOPunchPosition(new Vector3(0, 0, -2*punchStrenght), 2*punchDuration, punchVibrato, punchElasticity);
+            audioSource.PlayOneShot(missleAudio, 0.01F);
+            missleShooter.Play();
         }
 
         //RELEASE
