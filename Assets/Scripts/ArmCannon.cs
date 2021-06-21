@@ -84,7 +84,7 @@ public class ArmCannon : MonoBehaviour
         } 
         else if (Input.GetMouseButtonDown(1))
         {
-            muzzleFlash.Play();
+            //muzzleFlash.Play();
 
             cannonModel.DOComplete();
             cannonModel.DOPunchPosition(new Vector3(0, 0, -2*punchStrenght), 2*punchDuration, punchVibrato, punchElasticity);
