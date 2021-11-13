@@ -51,6 +51,8 @@ public class ArmCannon : MonoBehaviour
     public AudioClip chargeShotAudio;
     private AudioSource audioSource;
 
+    private MissleAmmo missleAmmo;
+
 
     void Start()
     {
@@ -65,6 +67,10 @@ public class ArmCannon : MonoBehaviour
         }
         if(missleAudio == null){
             missleAudio = Resources.Load<AudioClip>("Audio/ice04.wav");
+        }
+        if(missleAmmo == null){
+            missleAmmo = GetComponent<MissleAmmo>();
+            Debug.Log(missleAmmo);
         }
 
     }
@@ -85,11 +91,19 @@ public class ArmCannon : MonoBehaviour
         else if (Input.GetMouseButtonDown(1))
         {
             //muzzleFlash.Play();
+            if(missleAmmo.ammo > 0) {
+                cannonModel.DOComplete();
+                cannonModel.DOPunchPosition(new Vector3(0, 0, -2*punchStrenght), 2*punchDuration, punchVibrato, punchElasticity);
+                audioSource.PlayOneShot(missleAudio, 0.01F);
+                missleShooter.Play();
+                missleAmmo.ammo -= 1;
+            } else {
+                cannonModel.DOComplete();
+                cannonModel.DOPunchPosition(new Vector3(0, 0, -0.1f*punchStrenght), 0.1f*punchDuration, punchVibrato, punchElasticity);
+                audioSource.PlayOneShot(missleAudio, 0.01F);
+            }
+            
 
-            cannonModel.DOComplete();
-            cannonModel.DOPunchPosition(new Vector3(0, 0, -2*punchStrenght), 2*punchDuration, punchVibrato, punchElasticity);
-            audioSource.PlayOneShot(missleAudio, 0.01F);
-            missleShooter.Play();
         }
 
         //RELEASE
